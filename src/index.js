@@ -1,7 +1,15 @@
-import scripts from "./scripts";
 import router from "./router";
-export default (options) => {
-  return router;
-};
 
-export { scripts };
+import database from "./database";
+
+function Hitched(options) {
+  if (!options.database) {
+    throw new Error("You must provide a Mongoose database object.");
+  }
+  const internalOptions = {};
+  internalOptions.db = database(options);
+
+  return router(internalOptions);
+}
+
+export default Hitched;
