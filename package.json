@@ -2,19 +2,17 @@
   "name": "hitched",
   "version": "1.0.0",
   "description": "I wanted to build a reusable system for managing weddings. The idea is that this will take care of all the \"behind the scenes\" logic and allow you (the developer) to focus on building the appearance and functionality on the front-end.",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "nodemon -r esm ./demo"
+    "demo": "nodemon -r esm ./demo",
+    "admin": "parcel ./src/admin/index.html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brandon-pereira/hitched.git"
   },
-  "author": "",
+  "author": "brandon-pereira",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/brandon-pereira/hitched/issues"
@@ -27,6 +25,20 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "mongoose": "^5.12.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "parcel-bundler": "^1.12.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-query": "^3.13.0",
+    "styled-components": "^5.2.1"
+  },
+  "dependencies": {
+    "express-basic-auth": "^1.2.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist/**",
+      "src/admin/**"
+    ]
   }
 }

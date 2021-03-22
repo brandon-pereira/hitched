@@ -1,4 +1,5 @@
 import express from "express";
+import initAdminRoutes from "./routes/admin";
 
 function initRouter({ db }) {
   const router = express.Router();
@@ -14,6 +15,8 @@ function initRouter({ db }) {
       stats: 0,
     });
   });
+
+  initAdminRoutes({ db, router });
 
   return router;
 }

@@ -13,6 +13,13 @@ app.get("/", (req, res) => {
 app.use(
   hitched({
     database,
+    config: {
+      admin: {
+        users: {
+          admin: "admin",
+        },
+      },
+    },
   })
 );
 
