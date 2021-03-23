@@ -5,7 +5,6 @@ function initRouter({ db }) {
   const router = express.Router();
 
   router.get("/api/admin/guests", async (req, res) => {
-    console.log(db);
     const guests = await db.Guest.find({});
     // const stats = await countUsers(users);
 
