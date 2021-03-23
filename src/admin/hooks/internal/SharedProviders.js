@@ -1,15 +1,12 @@
 import React from "react";
 
-// import { ModalsProvider } from "../useHamburgerNav";
-// import { ProfileProvider } from "../useProfile";
-// import { ListsProvider } from "../useLists";
-// import { CompletedTasksProvider } from "../useCompletedTasks";
+import { Provider as SortProvider } from "../useSortBy";
+import { Provider as FilterProvider } from "../useFilterBy";
 
-// // Order matters for some of these!
+// Order matters for some of these!
 const Providers = [
-  //   ModalsProvider,
-  //   ProfileProvider,
-  //   ListsProvider,
+  SortProvider,
+  FilterProvider,
   //   CompletedTasksProvider,
 ].reverse();
 

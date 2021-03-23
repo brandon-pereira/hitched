@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import NewWeds from "../../components/Icons/NewWeds";
+import QuickStats from "./QuickStats";
 
 const Container = styled.div`
   width: 100%;
@@ -27,11 +28,14 @@ const Container = styled.div`
 
 function LandingPage() {
   return (
-    <Container>
-      <NewWeds />
-      <h1>Hitched</h1>
-      <h2>Select a guest or add a guest from the left.</h2>
-    </Container>
+    <>
+      <QuickStats />
+      <Container>
+        <NewWeds />
+        <h1>Hitched</h1>
+        <h2>Click a Guest or "Add Guest" from the sidebar to begin.</h2>
+      </Container>
+    </>
   );
 }
 

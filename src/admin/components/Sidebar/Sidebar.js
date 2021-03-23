@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useGuestList from "../../hooks/useGuestList";
 
 import AddGuest from "./AddGuest";
+import Filters from "./Filters";
 import SidebarItem from "./Item";
 
 const Container = styled.aside`
@@ -26,9 +27,10 @@ function Sidebar() {
 
   return (
     <Container>
+      <Filters />
       <ItemContainer>
-        {guests.map((user) => (
-          <SidebarItem key={user.id} {...user} />
+        {guests.map((guest) => (
+          <SidebarItem key={guest._id} {...guest} />
         ))}
       </ItemContainer>
       <AddGuest />
