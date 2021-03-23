@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.button`
-  background: transparent;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), transparent);
   color: #fff;
   border: none;
   text-align: left;
@@ -14,7 +14,7 @@ const Container = styled.button`
 `;
 
 function AddGuest() {
-  return <Container>Add Guestaaa</Container>;
+  return <Container>Add Guest</Container>;
 }
 
 export default AddGuest;

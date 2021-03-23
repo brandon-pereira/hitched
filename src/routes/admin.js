@@ -15,12 +15,11 @@ function initAdminRoutes({ db, router }) {
     const Bundler = require("parcel-bundler");
     const bundler = new Bundler("src/admin/index.html", {
       publicUrl: "/admin/",
-    });
-    const parcel_middleware = bundler.middleware();
+      logLevel: "2",
+    }).middleware();
     router.use("/admin", function (req, res, next) {
-      console.log(req.url, req.originalUrl);
       req.url = req.originalUrl;
-      parcel_middleware(req, res, next);
+      bundler(req, res, next);
     });
   } else {
     router.use("/admin", express.static("./src/admin"));

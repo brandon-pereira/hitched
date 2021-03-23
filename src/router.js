@@ -4,14 +4,14 @@ import initAdminRoutes from "./routes/admin";
 function initRouter({ db }) {
   const router = express.Router();
 
-  router.get("/api/users", async (req, res) => {
+  router.get("/api/admin/guests", async (req, res) => {
     console.log(db);
-    const users = await db.Guest.find({});
+    const guests = await db.Guest.find({});
     // const stats = await countUsers(users);
 
     res.json({
       success: true,
-      users,
+      guests,
       stats: 0,
     });
   });
