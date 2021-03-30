@@ -5,10 +5,13 @@ import useFilterBy, { FILTER_METHODS } from "../../hooks/useFilterBy";
 import useSortBy, { SORT_METHODS } from "../../hooks/useSortBy";
 
 const Container = styled.div`
-  background: rgba(0, 0, 0, 0.3);
+  background: #503047;
+  border-radius: 1rem;
+  margin: 0 0 1rem;
   color: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   display: flex;
+  overflow: hidden;
 `;
 
 const Filter = styled.select`

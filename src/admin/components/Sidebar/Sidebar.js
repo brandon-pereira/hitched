@@ -7,12 +7,10 @@ import Filters from "./Filters";
 import SidebarItem from "./Item";
 
 const Container = styled.aside`
-  background: #4164a0;
+  margin: 2rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
-  box-shadow: inset -1px 0 rgba(0, 0, 0, 0.5), 0 10px 100px rgba(0, 0, 0, 0.5);
 `;
 
 const ItemContainer = styled.ul`
@@ -20,6 +18,7 @@ const ItemContainer = styled.ul`
   overflow-y: scroll;
   padding: 0;
   margin: 0;
+  border-radius: 1rem;
 `;
 
 function Sidebar() {

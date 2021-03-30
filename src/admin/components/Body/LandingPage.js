@@ -13,6 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   svg {
     width: min(20vw, 400px);
+    margin-top: -10rem;
   }
   h1 {
     margin: 0.6rem 0 1rem;

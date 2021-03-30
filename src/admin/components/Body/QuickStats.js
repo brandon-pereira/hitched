@@ -3,11 +3,10 @@ import styled from "styled-components";
 import useFilterBy, { FILTER_METHODS } from "../../hooks/useFilterBy";
 
 const Container = styled.div`
-  margin: 2rem 2rem 0;
-  border-radius: 1rem;
+  margin: 2rem auto 0;
   display: flex;
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
-    0 3px 5px -1px rgba(0, 0, 0, 0.2);
+  justify-content: space-around;
+  width: min(400px, 100%);
 `;
 
 const Stat = styled.div`

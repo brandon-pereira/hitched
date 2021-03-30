@@ -2,10 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.li`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  background: #eee;
+  color: #222;
   padding: 1rem 0.5rem 1rem 1.5rem;
-  color: #fff;
   position: relative;
+  margin-bottom: 0.2rem;
+  border-radius: 1rem;
+  overflow: hidden;
 `;
 
 const TheirName = styled.span`
@@ -26,7 +29,7 @@ const AttendingBadge = styled.div`
   top: 0;
   bottom: 0;
   left: 0;
-  width: 0.6rem;
+  width: 0.5rem;
   background: #1b98f5;
   ${({ isDeclined }) =>
     isDeclined &&

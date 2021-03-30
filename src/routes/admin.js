@@ -15,7 +15,7 @@ function initAdminRoutes({ db, router }) {
     const Bundler = require("parcel-bundler");
     const bundler = new Bundler("src/admin/index.html", {
       publicUrl: "/admin/",
-      logLevel: "2",
+      // logLevel: "2",
     }).middleware();
     router.use("/admin", function (req, res, next) {
       req.url = req.originalUrl;
