@@ -44,6 +44,7 @@ const AttendingBadge = styled.div`
 `;
 
 function SidebarItem({
+  onClick,
   firstName,
   lastName,
   plusOne,
@@ -51,7 +52,7 @@ function SidebarItem({
   isConfirmed,
 }) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <AttendingBadge isConfirmed={isConfirmed} isDeclined={isDeclined} />
       <TheirName>
         {firstName} {lastName}

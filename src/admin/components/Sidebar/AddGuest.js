@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import useCurrentView from "../../hooks/useCurrentView";
+
 const Container = styled.button`
   color: #fff;
   border: none;
@@ -15,7 +17,11 @@ const Container = styled.button`
 `;
 
 function AddGuest() {
-  return <Container>Add Guest</Container>;
+  const { setGuestId } = useCurrentView();
+
+  return (
+    <Container onClick={() => setGuestId("add-guest")}>Add Guest</Container>
+  );
 }
 
 export default AddGuest;

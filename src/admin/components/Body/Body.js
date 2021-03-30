@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import useCurrentView from "../../hooks/useCurrentView";
+
 import LandingPage from "./LandingPage";
 
 const Container = styled.div`
@@ -9,9 +11,13 @@ const Container = styled.div`
 `;
 
 function Body() {
+  const { mode } = useCurrentView();
+  console.log(mode);
   return (
     <Container>
-      <LandingPage />
+      {mode === "NONE" && <LandingPage />}
+      {mode === "ADD_GUEST" && <div>Add</div>}
+      {mode === "EDIT_GUEST" && <div>Edit</div>}
     </Container>
   );
 }

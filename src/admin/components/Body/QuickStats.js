@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import useFilterBy, { FILTER_METHODS } from "../../hooks/useFilterBy";
+import useGuestList from "../../hooks/useGuestList";
 
 const Container = styled.div`
   margin: 2rem auto 0;
@@ -28,7 +29,22 @@ const Stat = styled.div`
 `;
 
 function QuickStats() {
+  const { stats, isLoading, error } = useGuestList();
   const [, setFilterBy] = useFilterBy();
+
+  if (error) {
+    return;
+  }
+  if (isLoading) {
+    return (
+      <Container>
+        <Stat>
+          <h2>&nbsp;</h2>
+          <h3>&nbsp;</h3>
+        </Stat>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Stat
@@ -36,7 +52,7 @@ function QuickStats() {
           setFilterBy(FILTER_METHODS.CONFIRMED);
         }}
       >
-        <h2>30</h2>
+        <h2>{stats.confirmed}</h2>
         <h3>Confirmed</h3>
       </Stat>
       <Stat
@@ -44,7 +60,7 @@ function QuickStats() {
           setFilterBy(FILTER_METHODS.DECLINED);
         }}
       >
-        <h2>30</h2>
+        <h2>{stats.declined}</h2>
         <h3>Declined</h3>
       </Stat>
       <Stat
@@ -52,7 +68,7 @@ function QuickStats() {
           setFilterBy(FILTER_METHODS.PENDING);
         }}
       >
-        <h2>30</h2>
+        <h2>{stats.pending}</h2>
         <h3>Pending</h3>
       </Stat>
     </Container>
