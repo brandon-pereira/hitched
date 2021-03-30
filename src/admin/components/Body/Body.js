@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useCurrentView from "../../hooks/useCurrentView";
 
 import LandingPage from "./LandingPage";
+import GuestForm from "../GuestForm/GuestForm";
 
 const Container = styled.div`
   width: 100%;
@@ -16,7 +17,7 @@ function Body() {
   return (
     <Container>
       {mode === "NONE" && <LandingPage />}
-      {mode === "ADD_GUEST" && <div>Add</div>}
+      {mode === "ADD_GUEST" && <GuestForm />}
       {mode === "EDIT_GUEST" && <div>Edit</div>}
     </Container>
   );
