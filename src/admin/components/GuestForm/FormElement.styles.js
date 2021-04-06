@@ -40,6 +40,7 @@ export const InputStyleHelper = styled.span`
 export const Input = styled.input`
   border: none;
   outline: none;
+  background: #ededed;
   font-size: 1rem;
   box-sizing: border-box;
   padding: 0.7rem 0.6em;
@@ -63,5 +64,49 @@ export const Input = styled.input`
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus {
     box-shadow: 0 0 0px 1000px white inset;
+  }
+`;
+
+export const CheckboxContainer = styled.label`
+  display: flex;
+  align-items: center;
+  ${Label} {
+      order: 2;
+      flex: 1;
+      padding: 0.5rem 1rem;
+      margin: 0 !important;
+    }
+    ${Input} {
+      display: none;
+      + ${InputStyleHelper} {
+        display: flex;
+        height: 2rem;
+        width: 2rem;
+        border-radius: 5px;
+        box-shadow: inset 0 0 0 2px #ccc;
+        align-items: center;
+        justify-content: center;
+        &:before {
+          content: "";
+          display: inline-block;
+          position: static;
+          transform: none;
+          height: 0;
+          width: 0;
+          background: #024f8a;
+          transition: all 0.2s cubic-bezier(0.17, 0.67, 0.77, 1.4);
+          border-radius: 5px;
+        }
+      }
+      &:checked {
+        & + ${InputStyleHelper} {
+          box-shadow: inset 0 0 0 2px #024f8a;
+          &:before {
+            height: 1.5rem;
+            width: 1.5rem;
+          }
+        }
+      }
+    }
   }
 `;

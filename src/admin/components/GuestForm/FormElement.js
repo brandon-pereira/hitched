@@ -2,18 +2,25 @@ import React from "react";
 
 import {
   Container,
+  CheckboxContainer,
   Input,
   InputContainer,
   InputStyleHelper,
   Label,
 } from "./FormElement.styles";
 
-function FormElement({ id, label, ...props }) {
+function FormElement({ id, label, type, ...props }) {
   return (
-    <Container>
+    <Container as={type === "checkbox" ? CheckboxContainer : undefined}>
       <Label htmlFor={id}>{label}</Label>
       <InputContainer>
-        <Input className="rsvp--form--input" id={id} name={id} {...props} />
+        <Input
+          className="rsvp--form--input"
+          id={id}
+          name={id}
+          type={type}
+          {...props}
+        />
         <InputStyleHelper></InputStyleHelper>
       </InputContainer>
     </Container>
