@@ -1,19 +1,12 @@
 import express from "express";
+import bodyParser from "body-parser";
+
 import initAdminRoutes from "./routes/admin";
 
 function initRouter({ db }) {
   const router = express.Router();
 
-  router.get("/api/admin/guests", async (req, res) => {
-    const guests = await db.Guest.find({});
-    // const stats = await countUsers(users);
-
-    res.json({
-      success: true,
-      guests,
-      stats: 0,
-    });
-  });
+  router.use(bodyParser.json());
 
   initAdminRoutes({ db, router });
 

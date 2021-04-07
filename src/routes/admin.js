@@ -25,6 +25,27 @@ function initAdminRoutes({ db, router }) {
     router.use("/admin", express.static("./src/admin"));
   }
 
+  router.get("/api/admin/guests", async (req, res) => {
+    const guests = await db.Guest.find({});
+    res.json({
+      success: true,
+      guests: guests || [],
+    });
+  });
+
+  router.put("/api/admin/guests", async (req, res) => {
+    try {
+      const guest = new db.Guest(req.body);
+      await guest.save();
+      res.json({
+        success: true,
+        guest,
+      });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err });
+    }
+  });
+
   return router;
 }
 

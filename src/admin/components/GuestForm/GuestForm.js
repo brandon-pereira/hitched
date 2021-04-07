@@ -4,6 +4,7 @@ import _get from "lodash.get";
 
 import FormElement from "./FormElement";
 import { Column, Container, Submit, Row } from "./GuestForm.styles";
+import useAddGuest from "../../hooks/useAddGuest";
 
 function GuestForm({ className }) {
   const {
@@ -13,7 +14,8 @@ function GuestForm({ className }) {
     watch,
   } = useForm();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
-  const onSubmit = (data) => console.log(data);
+  const { mutate } = useAddGuest();
+  const onSubmit = (data) => mutate(data);
 
   return (
     <Container className={className} onSubmit={handleSubmit(onSubmit)}>

@@ -72,7 +72,7 @@ function Guest(mongoose) {
     },
   });
 
-  const model = mongoose.model("User", schema);
+  const model = mongoose.model("Guest", schema);
 
   return model;
 }
