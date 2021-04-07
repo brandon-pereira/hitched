@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-  color: #024f8a;
+  color: ${({ theme }) => theme.colors.secondary};
   font-weight: 400;
   text-transform: uppercase;
   font-weight: 600;
@@ -14,11 +14,11 @@ export const Label = styled.label`
   a {
     color: inherit;
   }
-  ${({ error }) => error && `color: #c53636;`}
+  ${({ error, theme }) => error && `color: ${theme.colors.red};`}
 `;
 
 export const ErrorMessage = styled.span`
-  color: #c53636;
+  color: ${({ theme }) => theme.colors.red};
   margin-top: 0.2rem;
   display: block;
   font-size: 0.9rem;
@@ -40,13 +40,14 @@ export const InputStyleHelper = styled.span`
     width: 0%;
     transition: width 0.5s;
     height: 2px;
-    background: #5a7891;
+    background: ${({ theme }) => theme.colors.secondary};
     transform: translate(-50%);
   }
-  ${({ error }) =>
+  ${({ error, theme }) =>
     error &&
     `&, &:before { 
-     background: #c53636;
+      
+     background: ${theme.colors.red};
     }`}
 `;
 
@@ -67,9 +68,6 @@ export const Input = styled.input`
     background: #f2f2f2;
     color: #505050;
   }
-  // &:focus {
-  //   background: #fff;
-  // }
   &:focus + span:before {
     width: 100%;
   }
@@ -92,6 +90,7 @@ export const CheckboxContainer = styled.label`
     ${Input} {
       display: none;
       + ${InputStyleHelper} {
+        background: #fff;
         display: flex;
         height: 2rem;
         width: 2rem;
@@ -106,14 +105,14 @@ export const CheckboxContainer = styled.label`
           transform: none;
           height: 0;
           width: 0;
-          background: #024f8a;
+          background: ${({ theme }) => theme.colors.secondary};;
           transition: all 0.2s cubic-bezier(0.17, 0.67, 0.77, 1.4);
           border-radius: 5px;
         }
       }
       &:checked {
         & + ${InputStyleHelper} {
-          box-shadow: inset 0 0 0 2px #024f8a;
+          box-shadow: inset 0 0 0 2px ${({ theme }) => theme.colors.secondary};;
           &:before {
             height: 1.5rem;
             width: 1.5rem;

@@ -5,7 +5,7 @@ import useFilterBy, { FILTER_METHODS } from "../../hooks/useFilterBy";
 import useSortBy, { SORT_METHODS } from "../../hooks/useSortBy";
 
 const Container = styled.div`
-  background: #503047;
+  background: ${({ theme }) => theme.colors.primary};
   border-radius: 1rem;
   margin: 0 0 1rem;
   color: #fff;

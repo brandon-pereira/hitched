@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import GlobalStyle from "./GlobalStyle";
+import ThemeProvider from "./ThemeProvider";
 
 const Container = styled.div`
   background: #fff;
@@ -16,7 +17,7 @@ function AppContainer({ children }) {
   return (
     <Container role="main">
       <GlobalStyle />
-      {children}
+      <ThemeProvider>{children}</ThemeProvider>
     </Container>
   );
 }

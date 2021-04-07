@@ -7,7 +7,7 @@ import hitched from "../src";
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send('<a href="/api/users">Hitched</a>');
+  res.send('<a href="/admin">Admin Panel</a>');
 });
 
 app.use(

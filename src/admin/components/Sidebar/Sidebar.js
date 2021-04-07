@@ -16,7 +16,7 @@ const Container = styled.aside`
 
 const ItemContainer = styled.ul`
   flex: 1 0 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0;
   margin: 0;
   border-radius: 1rem;

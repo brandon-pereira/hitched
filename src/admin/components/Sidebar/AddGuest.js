@@ -13,7 +13,7 @@ const Container = styled.button`
   cursor: pointer;
   margin: 1rem 0 0 0;
   border-radius: 1rem;
-  background: #503047;
+  background: ${({ theme }) => theme.colors.primary};
 `;
 
 function AddGuest() {
