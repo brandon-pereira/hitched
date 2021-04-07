@@ -14,6 +14,14 @@ export const Label = styled.label`
   a {
     color: inherit;
   }
+  ${({ error }) => error && `color: #c53636;`}
+`;
+
+export const ErrorMessage = styled.span`
+  color: #c53636;
+  margin-top: 0.2rem;
+  display: block;
+  font-size: 0.9rem;
 `;
 
 export const InputContainer = styled.div``;
@@ -35,6 +43,11 @@ export const InputStyleHelper = styled.span`
     background: #5a7891;
     transform: translate(-50%);
   }
+  ${({ error }) =>
+    error &&
+    `&, &:before { 
+     background: #c53636;
+    }`}
 `;
 
 export const Input = styled.input`

@@ -33,7 +33,9 @@
     "styled-components": "^5.2.1"
   },
   "dependencies": {
-    "express-basic-auth": "^1.2.0"
+    "express-basic-auth": "^1.2.0",
+    "lodash.get": "^4.4.2",
+    "react-hook-form": "^7.0.1"
   },
   "nodemonConfig": {
     "ignore": [

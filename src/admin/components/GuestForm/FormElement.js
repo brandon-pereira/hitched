@@ -6,25 +6,28 @@ import {
   Input,
   InputContainer,
   InputStyleHelper,
+  ErrorMessage,
   Label,
 } from "./FormElement.styles";
 
-function FormElement({ id, label, type, ...props }) {
+const FormElement = React.forwardRef(function (
+  { id, label, type, error, ...props },
+  ref
+) {
   return (
     <Container as={type === "checkbox" ? CheckboxContainer : undefined}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label error={Boolean(error)} htmlFor={id}>
+        {label}
+      </Label>
       <InputContainer>
-        <Input
-          className="rsvp--form--input"
-          id={id}
-          name={id}
-          type={type}
-          {...props}
-        />
-        <InputStyleHelper></InputStyleHelper>
+        <Input ref={ref} id={id} name={id} type={type} {...props} />
+        <InputStyleHelper error={Boolean(error)}></InputStyleHelper>
       </InputContainer>
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
     </Container>
   );
-}
+});
+
+FormElement.displayName = "FormElement";
 
 export default FormElement;
