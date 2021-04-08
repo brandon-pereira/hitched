@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import _get from "lodash.get";
 
 import FormElement from "./FormElement";
-import { Column, Container, Submit, Row } from "./GuestForm.styles";
+import { Column, Container, Submit, Error, Row } from "./GuestForm.styles";
 import useAddGuest from "../../hooks/useAddGuest";
 
 function GuestForm({ className }) {
@@ -14,11 +14,33 @@ function GuestForm({ className }) {
     watch,
   } = useForm();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
-  const { mutate } = useAddGuest();
-  const onSubmit = (data) => mutate(data);
+  console.log(watch("attending"));
+  const { mutate, isError, error } = useAddGuest();
+  const onSubmit = (data) => {
+    if (data.plusOne && !data.plusOne.firstName && !data.plusOne.lastName) {
+      delete data.plusOne;
+    }
+    if (!data.numberOfKids) {
+      delete data.numberOfKids;
+    }
+    if (!data.comments) {
+      delete data.comments;
+    }
+    delete data.hasAdditionalGuests;
+    mutate(data);
+  };
 
   return (
     <Container className={className} onSubmit={handleSubmit(onSubmit)}>
+      {isError && (
+        <Error>
+          {_get(
+            error,
+            "response.data.error.message",
+            "Unexpected Error Occurred"
+          )}
+        </Error>
+      )}
       <Row>
         <Column>
           <FormElement
@@ -29,7 +51,7 @@ function GuestForm({ className }) {
                 message: "Email is required.",
               },
               pattern: {
-                value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                 message: "Email is not formatted correctly.",
               },
             })}
@@ -141,9 +163,10 @@ function GuestForm({ className }) {
                     value: /[0-9]{1}/,
                     message: "Must be a number",
                   },
+                  min: 0,
                   max: {
-                    value: 8,
-                    message: "Maximum 8 kids allowed",
+                    value: 12,
+                    message: "Maximum 12 kids allowed",
                   },
                 })}
                 error={errors.numberOfKids}
@@ -156,7 +179,16 @@ function GuestForm({ className }) {
       )}
       <Row>
         <Column>
-          <FormElement type="select" id="attending" label="Attending" />
+          <FormElement
+            type="select"
+            id="attendance"
+            label="Attendance"
+            {...register("attendance", {})}
+          >
+            <option>Attending</option>
+            <option>Declined</option>
+            <option>Pending</option>
+          </FormElement>
         </Column>
       </Row>
       <Row>

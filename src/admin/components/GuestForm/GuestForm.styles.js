@@ -26,3 +26,10 @@ export const Submit = styled.button`
   margin: 1.6rem auto 0;
   padding: 0.6rem 3rem;
 `;
+
+export const Error = styled.div`
+  padding: 1rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  background: ${({ theme }) => theme.colors.red};
+`;

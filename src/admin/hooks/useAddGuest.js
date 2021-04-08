@@ -1,22 +1,13 @@
 import { useMutation, useQueryClient } from "react-query";
+import axios from "axios";
 
 function useAddGuest() {
   const queryClient = useQueryClient();
-  const mutation = useMutation(
-    (data) =>
-      fetch("/api/admin/guests", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((res) => res.json()),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("guestList");
-      },
-    }
-  );
+  const mutation = useMutation((data) => axios.put("/api/admin/guests", data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("guestList");
+    },
+  });
 
   return mutation;
 }

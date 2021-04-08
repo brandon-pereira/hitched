@@ -35,6 +35,7 @@ function initAdminRoutes({ db, router }) {
 
   router.put("/api/admin/guests", async (req, res) => {
     try {
+      console.log(req.body);
       const guest = new db.Guest(req.body);
       await guest.save();
       res.json({

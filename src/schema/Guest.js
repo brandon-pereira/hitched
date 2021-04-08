@@ -22,7 +22,7 @@ function Guest(mongoose) {
       index: true,
       match: [
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-        "Please fill a valid email address",
+        "Email is not formatted correctly.",
       ],
     },
     creationDate: {
@@ -47,8 +47,8 @@ function Guest(mongoose) {
     },
     numberOfKids: {
       type: Number,
-      maxlength: 50,
-      minlength: 0,
+      max: 12,
+      min: 0,
     },
     plusOne: {
       firstName: {

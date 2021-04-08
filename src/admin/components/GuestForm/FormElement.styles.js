@@ -122,3 +122,5 @@ export const CheckboxContainer = styled.label`
     }
   }
 `;
+
+export const Select = styled(Input)``;

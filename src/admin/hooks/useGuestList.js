@@ -11,7 +11,6 @@ function useGuestList() {
     fetch("/api/admin/guests").then((res) => res.json())
   );
 
-  console.log(data);
   const guests = useMemo(() => {
     if (data && data.guests) {
       const guests = Array.from(data.guests)
