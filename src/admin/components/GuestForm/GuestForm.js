@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import _get from "lodash.get";
 
@@ -6,16 +6,26 @@ import FormElement from "./FormElement";
 import { Column, Container, Submit, Error, Row } from "./GuestForm.styles";
 import useAddGuest from "../../hooks/useAddGuest";
 
-function GuestForm({ className }) {
+function GuestForm({ className, initialGuest }) {
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
+    reset,
   } = useForm();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
-  console.log(watch("attending"));
-  const { mutate, isError, error } = useAddGuest();
+  const { mutate, isError, error, reset: resetAddGuestErrors } = useAddGuest();
+
+  useEffect(() => {
+    console.log("GUEST CHANGED", initialGuest);
+    if (initialGuest && (initialGuest.plusOne || initialGuest.numberOfKids)) {
+      initialGuest.hasAdditionalGuests = true;
+    }
+    reset(initialGuest);
+    resetAddGuestErrors();
+  }, [initialGuest]);
+
   const onSubmit = (data) => {
     if (data.plusOne && !data.plusOne.firstName && !data.plusOne.lastName) {
       delete data.plusOne;

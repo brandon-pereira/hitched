@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useGuestList from "../../hooks/useGuestList";
+import useGuests from "../../hooks/useGuests";
 import useCurrentView from "../../hooks/useCurrentView";
 
 import AddGuest from "./AddGuest";
@@ -23,7 +23,7 @@ const ItemContainer = styled.ul`
 `;
 
 function Sidebar() {
-  const { isLoading, error, guests } = useGuestList();
+  const { isLoading, error, guests } = useGuests();
   const { setGuestId } = useCurrentView();
 
   return (

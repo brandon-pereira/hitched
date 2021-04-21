@@ -2,7 +2,7 @@ import React from "react";
 
 import { Provider as SortProvider } from "../useSortBy";
 import { Provider as FilterProvider } from "../useFilterBy";
-import { Provider as GuestListProvider } from "../useGuestList";
+import { Provider as GuestListProvider } from "../useGuests";
 import { Provider as CurrentViewProvider } from "../useCurrentView";
 
 // Order matters for some of these!

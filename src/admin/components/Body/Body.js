@@ -5,6 +5,7 @@ import useCurrentView from "../../hooks/useCurrentView";
 
 import LandingPage from "./LandingPage";
 import AddGuest from "./AddGuest";
+import EditGuest from "./EditGuest";
 import GuestForm from "../GuestForm/GuestForm";
 
 const Container = styled.div`
@@ -20,7 +21,7 @@ function Body() {
     <Container>
       {mode === "NONE" && <LandingPage />}
       {mode === "ADD_GUEST" && <AddGuest />}
-      {mode === "EDIT_GUEST" && <div>Edit</div>}
+      {mode === "EDIT_GUEST" && <EditGuest />}
     </Container>
   );
 }

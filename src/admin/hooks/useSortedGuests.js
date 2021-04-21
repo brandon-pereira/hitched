@@ -4,12 +4,10 @@ import useSortBy from "./useSortBy";
 import useFilterBy from "./useFilterBy";
 import createSharedHook from "./internal/createdSharedHook";
 
-function useGuestList() {
+function useSortedGuests() {
   const [sortBy, setSortBy] = useSortBy();
   const [filterBy, setFilterBy] = useFilterBy();
-  const { isLoading, error, data } = useQuery("guestList", () =>
-    fetch("/api/admin/guests").then((res) => res.json())
-  );
+  const { isLoading, error, data } = useGuests();
 
   const guests = useMemo(() => {
     if (data && data.guests) {
@@ -42,27 +40,6 @@ function useGuestList() {
     return [];
   }, [data, sortBy, filterBy]);
 
-  const stats = useMemo(() => {
-    if (data && data.guests) {
-      return Array.from(data.guests).reduce(
-        (acc, user) => {
-          const entries = (user.plusOne ? 2 : 1) + (user.numberOfKids || 0);
-          if (user.isConfirmed) {
-            acc.confirmed += entries;
-          } else if (user.isDeclined) {
-            acc.declined += entries;
-          } else {
-            acc.pending += entries;
-          }
-          return acc;
-        },
-        {
-          confirmed: 0,
-          declined: 0,
-          pending: 0,
-        }
-      );
-    }
     return {
       confirmed: undefined,
       declined: undefined,
@@ -70,10 +47,10 @@ function useGuestList() {
     };
   }, [data]);
 
-  return { isLoading, stats, error, guests };
+  return { isLoading, error, guests };
 }
 
-const { Provider, useConsumer } = createSharedHook(useGuestList);
+const { Provider, useConsumer } = createSharedHook(useGuests);
 
 export { Provider };
 export default useConsumer;

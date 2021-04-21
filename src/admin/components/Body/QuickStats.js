@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import useFilterBy, { FILTER_METHODS } from "../../hooks/useFilterBy";
-import useGuestList from "../../hooks/useGuestList";
+import useGuests from "../../hooks/useGuests";
 
 const Container = styled.div`
   margin: 2rem auto 0;
@@ -29,7 +29,7 @@ const Stat = styled.div`
 `;
 
 function QuickStats() {
-  const { stats, isLoading, error } = useGuestList();
+  const { stats, isLoading, error } = useGuests();
   const [, setFilterBy] = useFilterBy();
 
   if (error) {
