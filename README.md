@@ -1,6 +1,8 @@
 # hitched
 
-I wanted to build a reusable system for managing weddings. The idea is that this will take care of all the "behind the scenes" logic and allow you (the developer) to focus on building the appearance and functionality on the front-end.
+Hitched is a reusable system for managing wedding invites, RSVPs, and thank you notes. The idea is that this will take care of all the "behind the scenes" logic and allow you (the developer) to focus on building the appearance and functionality on the front-end.
+
+Hitched also exposes an admin panel which will allow you to easily add, update, and delete guests and their associated information (plus ones, dietary restrictions, music suggestions, etc.).
 
 ## Installation
 
@@ -15,3 +17,4 @@ const express = require("express");
 const app = express();
 app.use(require("hitched")());
 ```
+
