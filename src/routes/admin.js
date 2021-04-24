@@ -1,11 +1,12 @@
 import express from "express";
 import basicAuth from "express-basic-auth";
+import _get from "lodash.get";
 
-function initAdminRoutes({ db, router }) {
+function initAdminRoutes({ db, config, router }) {
   router.use(
     ["/api/admin", "/admin"],
     basicAuth({
-      users: { admin: "a" },
+      users: _get(config, "admin.users", { admin: "hitched" }),
       challenge: true,
     })
   );

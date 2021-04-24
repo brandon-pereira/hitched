@@ -3,12 +3,12 @@ import bodyParser from "body-parser";
 
 import initAdminRoutes from "./routes/admin";
 
-function initRouter({ db }) {
+function initRouter(opts) {
   const router = express.Router();
 
   router.use(bodyParser.json());
 
-  initAdminRoutes({ db, router });
+  initAdminRoutes({ ...opts, router });
 
   return router;
 }

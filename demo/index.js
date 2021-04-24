@@ -16,7 +16,7 @@ app.use(
     config: {
       admin: {
         users: {
-          admin: "admin",
+          admin: "hitched",
         },
       },
     },
