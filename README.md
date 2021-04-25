@@ -10,6 +10,8 @@ Hitched also exposes an admin panel which will allow you to easily add, update, 
 npm i -S hitched
 ```
 
+## Usage
+
 Hitched exposes a middleware that you can then use to access our routes.
 
 ```js
@@ -18,3 +20,9 @@ const app = express();
 app.use(require("hitched")());
 ```
 
+## Running the demo
+
+1. Clone this repo
+2. Run `npm install`
+3. Run `npm run demo`
+4. Visit [localhost:4000](http://localhost:4000)

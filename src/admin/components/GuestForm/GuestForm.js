@@ -43,7 +43,6 @@ function GuestForm({ className, initialGuest }) {
     if (!data.comments) {
       delete data.comments;
     }
-    console.log(data);
     switch (data.attendance) {
       case "Attending":
         data.isConfirmed = true;
@@ -58,7 +57,6 @@ function GuestForm({ className, initialGuest }) {
         data.isDeclined = false;
         break;
     }
-    console.log(data);
     delete data.hasAdditionalGuests;
     mutate(data);
   };

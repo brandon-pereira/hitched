@@ -24,9 +24,7 @@ function mailer({ config }) {
 }
 
 function getTemplates(config) {
-  console.log(config);
   return async () => {
-    console.log("INSIDE");
     if (!config.admin.emailTemplates) {
       return [];
     }
@@ -54,10 +52,7 @@ const useTemplate = (config) => {
   const _getTemplates = getTemplates(config);
   return async (templateId, args) => {
     const templates = await _getTemplates();
-    console.log(templates);
     const template = templates.find((t) => t.templateId === templateId);
-    console.log(templateId, templates);
-    console.log(template);
     if (!template) {
       throw new Error("Invalid template ID");
     }
@@ -93,7 +88,6 @@ const sendMail = async (options) => {
     },
   };
   await new AWS.SES(SESConfig).sendEmail(params).promise();
-  console.log("DONE");
 };
 
 export default mailer;

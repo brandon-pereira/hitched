@@ -34,7 +34,6 @@ function initAdminRoutes({ db, config, mailer, router }) {
         templates,
       });
     } catch (err) {
-      console.log("HERE", err);
       res.status(500).json({ success: false, error: err });
     }
   });
@@ -48,7 +47,6 @@ function initAdminRoutes({ db, config, mailer, router }) {
       }
       const user = await db.Guest.findOne({ email: req.query.email });
       if (!user) {
-        console.error("Invalid user", email);
         throw new Error("Invalid email");
       }
       const template = await mailer.useTemplate("invite", user.toObject());
@@ -71,7 +69,6 @@ function initAdminRoutes({ db, config, mailer, router }) {
       }
       const user = await db.Guest.findOne({ email: req.query.email });
       if (!user) {
-        console.error("Invalid user", email);
         throw new Error("Invalid email");
       }
       const template = await mailer.useTemplate("invite", user.toObject());
@@ -109,7 +106,7 @@ function initAdminRoutes({ db, config, mailer, router }) {
         guest,
       });
     } catch (err) {
-      console.log("HERE", err);
+      console.error(err);
       res.status(500).json({ success: false, error: err });
     }
   });
@@ -118,7 +115,6 @@ function initAdminRoutes({ db, config, mailer, router }) {
     try {
       console.log("Modify Guest", req.body);
       const guest = await db.Guest.findById(req.body._id);
-      console.log(guest);
       guest.set(req.body);
 
       await guest.save();
