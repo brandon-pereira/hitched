@@ -5,17 +5,11 @@ import useCurrentView from "../../hooks/useCurrentView";
 import useGuests from "../../hooks/useGuests";
 
 import GuestForm from "../GuestForm/GuestForm";
+import Header from "../Header/Header";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-`;
-
-const Header = styled.header`
-  color: #fff;
-  font-size: 2rem;
-  padding: 1rem;
-  background: ${({ theme }) => theme.colors.primary};
 `;
 
 const _GuestForm = styled(GuestForm)`

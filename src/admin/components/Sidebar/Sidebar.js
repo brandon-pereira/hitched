@@ -13,6 +13,7 @@ const Container = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
 `;
 
 const ItemContainer = styled.ul`
