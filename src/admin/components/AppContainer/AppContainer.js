@@ -1,3 +1,4 @@
+import { Redshift } from "aws-sdk";
 import React from "react";
 import styled from "styled-components";
 
@@ -9,16 +10,21 @@ const Container = styled.div`
   display: grid;
   height: 100vh;
   width: 100vw;
-  grid-template-columns: 33vw 1fr;
+  grid-template-columns: 1fr 0fr;
   grid-template-rows: 1fr;
+  ${({ theme }) => `
+    @media ${theme.queries.medium} {
+      grid-template-columns: 33vw 1fr;
+    }
+  `}
 `;
 
 function AppContainer({ children }) {
   return (
-    <Container role="main">
+    <ThemeProvider role="main">
       <GlobalStyle />
-      <ThemeProvider>{children}</ThemeProvider>
-    </Container>
+      <Container>{children}</Container>
+    </ThemeProvider>
   );
 }
 
