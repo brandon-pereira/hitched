@@ -2,7 +2,7 @@ import express from "express";
 import basicAuth from "express-basic-auth";
 import _get from "lodash.get";
 
-function initAdminRoutes({ db, config, router }) {
+function initAdminRoutes({ db, config, mailer, router }) {
   router.use(
     ["/api/admin", "/admin"],
     basicAuth({
@@ -25,6 +25,71 @@ function initAdminRoutes({ db, config, router }) {
   } else {
     router.use("/admin", express.static("./src/admin"));
   }
+
+  router.get("/api/admin/emails", async (req, res) => {
+    try {
+      const templates = await mailer.getEmailTemplates();
+
+      res.json({
+        templates,
+      });
+    } catch (err) {
+      console.log("HERE", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  });
+
+  router.get("/api/admin/email/:template", async (req, res) => {
+    try {
+      const email = req.query.email;
+      const params = req.params.template;
+      if (!email || !params) {
+        throw new Error("Missing params");
+      }
+      const user = await db.Guest.findOne({ email: req.query.email });
+      if (!user) {
+        console.error("Invalid user", email);
+        throw new Error("Invalid email");
+      }
+      const template = await mailer.useTemplate("invite", user.toObject());
+
+      return res.send(template);
+    } catch (err) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ success: false, error: err ? err.toString() : null });
+    }
+  });
+
+  router.post("/api/admin/email", async (req, res) => {
+    try {
+      const email = req.params.email;
+      const params = req.params.template;
+      if (!email || !params) {
+        throw new Error("Missing params");
+      }
+      const user = await db.Guest.findOne({ email: req.query.email });
+      if (!user) {
+        console.error("Invalid user", email);
+        throw new Error("Invalid email");
+      }
+      const template = await mailer.useTemplate("invite", user.toObject());
+      await mailer.sendMail({
+        to: user.email,
+        subject: "Reminder: Emma & Brandon's Wedding Postponed!",
+        html: template,
+      });
+      return res.send({
+        success: true,
+      });
+    } catch (err) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ success: false, error: err ? err.toString() : null });
+    }
+  });
 
   router.get("/api/admin/guests", async (req, res) => {
     const guests = await db.Guest.find({});

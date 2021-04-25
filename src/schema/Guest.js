@@ -20,6 +20,7 @@ function Guest(mongoose) {
       unique: true,
       trim: true,
       index: true,
+      lowercase: true,
       match: [
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
         "Email is not formatted correctly.",

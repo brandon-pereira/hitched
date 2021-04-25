@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/brandon-pereira/hitched#readme",
   "peerDependencies": {
+    "aws-sdk": "^2.892.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "aws-sdk": "^2.892.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "mongoose": "^5.12.0",
@@ -29,6 +31,7 @@
     "parcel-bundler": "^1.12.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^7.0.1",
     "react-query": "^3.13.0",
     "styled-components": "^5.2.1"
   },
@@ -37,7 +40,8 @@
     "body-parser": "^1.19.0",
     "express-basic-auth": "^1.2.0",
     "lodash.get": "^4.4.2",
-    "react-hook-form": "^7.0.1"
+    "nunjucks": "^3.2.3",
+    "tiny-glob": "^0.2.8"
   },
   "nodemonConfig": {
     "ignore": [

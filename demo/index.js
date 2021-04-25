@@ -15,6 +15,7 @@ app.use(
     database,
     config: {
       admin: {
+        emailTemplates: "./demo/templates/*.html",
         users: {
           admin: "hitched",
         },

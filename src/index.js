@@ -1,6 +1,7 @@
 import router from "./router";
 
 import database from "./database";
+import mailer from "./mailer";
 
 function Hitched(options) {
   if (!options.database) {
@@ -10,6 +11,7 @@ function Hitched(options) {
     config: options.config,
   };
   internalOptions.db = database(options);
+  internalOptions.mailer = mailer(options);
 
   return router(internalOptions);
 }
