@@ -4,7 +4,8 @@ import _get from "lodash.get";
 
 import FormElement from "./FormElement";
 import { Column, Container, Submit, Error, Row } from "./GuestForm.styles";
-import useAddGuest from "../../hooks/useAddGuest";
+import useGuestFormSubmission from "./useGuestFormSubmission";
+import useDeleteGuest from "../../hooks/useDeleteGuest";
 
 function GuestForm({ className, initialGuest }) {
   const {
@@ -15,27 +16,49 @@ function GuestForm({ className, initialGuest }) {
     reset,
   } = useForm();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
-  const { mutate, isError, error, reset: resetAddGuestErrors } = useAddGuest();
+  const isModifying = Boolean(initialGuest);
+  const {
+    mutate,
+    isError,
+    error,
+    reset: resetSubmission,
+  } = useGuestFormSubmission(isModifying ? "MODIFY" : "CREATE");
+  const { mutate: deleteGuest } = useDeleteGuest();
 
   useEffect(() => {
-    console.log("GUEST CHANGED", initialGuest);
     if (initialGuest && (initialGuest.plusOne || initialGuest.numberOfKids)) {
       initialGuest.hasAdditionalGuests = true;
     }
     reset(initialGuest);
-    resetAddGuestErrors();
+    resetSubmission();
   }, [initialGuest]);
 
   const onSubmit = (data) => {
     if (data.plusOne && !data.plusOne.firstName && !data.plusOne.lastName) {
       delete data.plusOne;
     }
-    if (!data.numberOfKids) {
+    if (!data.numberOfKids && data.numberOfKids !== 0) {
       delete data.numberOfKids;
     }
     if (!data.comments) {
       delete data.comments;
     }
+    console.log(data);
+    switch (data.attendance) {
+      case "Attending":
+        data.isConfirmed = true;
+        data.isDeclined = false;
+        break;
+      case "Declined":
+        data.isConfirmed = false;
+        data.isDeclined = true;
+        break;
+      case "Pending":
+        data.isConfirmed = false;
+        data.isDeclined = false;
+        break;
+    }
+    console.log(data);
     delete data.hasAdditionalGuests;
     mutate(data);
   };
@@ -217,7 +240,12 @@ function GuestForm({ className, initialGuest }) {
           />
         </Column>
       </Row>
-      <Submit type="submit">Create</Submit>
+      <Submit type="submit">{isModifying ? "Modify" : "Create"}</Submit>
+      {isModifying && (
+        <button onClick={() => deleteGuest(initialGuest)} type="button">
+          DELETE
+        </button>
+      )}
     </Container>
   );
 }

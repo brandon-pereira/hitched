@@ -36,9 +36,40 @@ function initAdminRoutes({ db, config, router }) {
 
   router.put("/api/admin/guests", async (req, res) => {
     try {
-      console.log(req.body);
+      console.log("Create Guest", req.body);
       const guest = new db.Guest(req.body);
       await guest.save();
+      res.json({
+        success: true,
+        guest,
+      });
+    } catch (err) {
+      console.log("HERE", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  });
+
+  router.post("/api/admin/guests", async (req, res) => {
+    try {
+      console.log("Modify Guest", req.body);
+      const guest = await db.Guest.findById(req.body._id);
+      console.log(guest);
+      guest.set(req.body);
+
+      await guest.save();
+      res.json({
+        success: true,
+        guest,
+      });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err });
+    }
+  });
+
+  router.delete("/api/admin/guests/:guestId", async (req, res) => {
+    try {
+      const guest = await db.Guest.deleteOne({ id: req.body._id });
+
       res.json({
         success: true,
         guest,

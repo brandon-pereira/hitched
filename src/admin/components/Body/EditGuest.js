@@ -12,6 +12,9 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
+  color: #fff;
+  font-size: 2rem;
+  padding: 1rem;
   background: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -23,10 +26,10 @@ function EditGuest() {
   const { guestId } = useCurrentView();
   const { guests } = useGuests();
   const guest = useMemo(() => guests.find((g) => g._id === guestId), [guestId]);
-  console.log(guest);
+
   return (
     <Container>
-      <Header>{guestId}</Header>
+      <Header>Edit Guest</Header>
       <_GuestForm initialGuest={guest} />
     </Container>
   );
