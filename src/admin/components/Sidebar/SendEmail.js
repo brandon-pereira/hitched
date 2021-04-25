@@ -11,24 +11,24 @@ const Container = styled.button`
   padding: 1rem 2rem;
   font-size: 1.2rem;
   cursor: pointer;
-  margin: 1px 0 1rem;
-  border-radius: 0 0 1rem 1rem;
-  background: ${({ theme }) => theme.colors.primary};
+  margin: 1rem 0 0 0;
+  border-radius: 1rem 1rem 0 0;
+  background: ${({ theme }) => theme.colors.secondary};
 `;
 
-function AddGuest() {
+function SendEmail() {
   const { setMode, setGuestId } = useCurrentView();
 
   return (
     <Container
       onClick={() => {
-        setMode(VIEW_MODES.ADD_GUEST);
+        setMode(VIEW_MODES.SEND_EMAIL);
         setGuestId(null);
       }}
     >
-      Add Guest
+      Send Email
     </Container>
   );
 }
 
-export default AddGuest;
+export default SendEmail;

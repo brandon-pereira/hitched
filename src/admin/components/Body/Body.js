@@ -7,6 +7,7 @@ import LandingPage from "./LandingPage";
 import AddGuest from "./AddGuest";
 import EditGuest from "./EditGuest";
 import GuestForm from "../GuestForm/GuestForm";
+import SendEmail from "./SendEmail";
 
 const Container = styled.div`
   width: 100%;
@@ -20,6 +21,7 @@ function Body() {
   return (
     <Container>
       {mode === "NONE" && <LandingPage />}
+      {mode === "SEND_EMAIL" && <SendEmail />}
       {mode === "ADD_GUEST" && <AddGuest />}
       {mode === "EDIT_GUEST" && <EditGuest />}
     </Container>

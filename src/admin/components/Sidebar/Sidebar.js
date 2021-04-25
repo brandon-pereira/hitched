@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import useGuests from "../../hooks/useGuests";
-import useCurrentView from "../../hooks/useCurrentView";
+import useCurrentView, { VIEW_MODES } from "../../hooks/useCurrentView";
 
 import AddGuest from "./AddGuest";
+import SendEmail from "./SendEmail";
 import Filters from "./Filters";
 import SidebarItem from "./Item";
 
@@ -24,7 +25,7 @@ const ItemContainer = styled.ul`
 
 function Sidebar() {
   const { isLoading, error, guests } = useGuests();
-  const { setGuestId } = useCurrentView();
+  const { setGuestId, setMode } = useCurrentView();
 
   return (
     <Container>
@@ -34,10 +35,14 @@ function Sidebar() {
           <SidebarItem
             key={guest._id}
             {...guest}
-            onClick={() => setGuestId(guest._id)}
+            onClick={() => {
+              setMode(VIEW_MODES.EDIT_GUEST);
+              setGuestId(guest._id);
+            }}
           />
         ))}
       </ItemContainer>
+      <SendEmail />
       <AddGuest />
     </Container>
   );
