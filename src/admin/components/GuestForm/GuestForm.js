@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import _get from "lodash.get";
 
-import FormElement from "./FormElement";
+import FormElement from "../FormElement/FormElement";
 import { Column, Container, Submit, Error, Row } from "./GuestForm.styles";
 import useGuestFormSubmission from "./useGuestFormSubmission";
 import useDeleteGuest from "../../hooks/useDeleteGuest";
