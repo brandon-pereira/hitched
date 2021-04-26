@@ -7,6 +7,8 @@ import _Icon from "../Icons/Icon";
 const _Header = styled.header`
   color: #fff;
   font-size: 2rem;
+  margin: 1rem;
+  border-radius: 1rem;
   padding: 1rem;
   background: ${({ theme }) => theme.colors.primary};
 `;

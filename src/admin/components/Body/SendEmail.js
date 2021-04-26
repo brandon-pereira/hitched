@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import NewWeds from "../../components/Icons/NewWeds";
+import Header from "../../components/Header/Header";
 import QuickStats from "./QuickStats";
 
 const Container = styled.div`
@@ -30,12 +30,8 @@ const Container = styled.div`
 function LandingPage() {
   return (
     <>
-      <QuickStats />
-      <Container>
-        <NewWeds />
-        <h1>Send Email</h1>
-        <h2>Click a Guest or "Add Guest" from the sidebar to begin.</h2>
-      </Container>
+      <Header>Send Email</Header>
+      Hello World
     </>
   );
 }
