@@ -1,3 +1,21 @@
+import styled from "styled-components";
+
+export const Container = styled.form``;
+
+export const Row = styled.div`
+  margin-bottom: 0.8rem;
+  display: flex;
+`;
+
+export const Column = styled.div`
+  flex: 1;
+  flex-shrink: 0;
+  margin-right: 1rem;
+  &:last-of-type {
+    margin-right: 0;
+  }
+`;
+
 export const Submit = styled.button`
   background: ${({ theme }) => theme.colors.secondary};
   color: #fff;

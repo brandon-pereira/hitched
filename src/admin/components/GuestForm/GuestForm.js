@@ -3,7 +3,13 @@ import { useForm } from "react-hook-form";
 import _get from "lodash.get";
 
 import FormElement from "../FormElement/FormElement";
-import { Column, Container, Submit, Error, Row } from "./GuestForm.styles";
+import {
+  Column,
+  Container,
+  Submit,
+  Error,
+  Row,
+} from "../FormCommon/FormCommon";
 import useGuestFormSubmission from "./useGuestFormSubmission";
 import useDeleteGuest from "../../hooks/useDeleteGuest";
 

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "../../components/Header/Header";
+import FormElement from "../FormElement/FormElement";
+import EmailForm from "../EmailForm/EmailForm";
 import QuickStats from "./QuickStats";
 
 const Container = styled.div`
@@ -31,7 +33,7 @@ function LandingPage() {
   return (
     <>
       <Header>Send Email</Header>
-      Hello World
+      <EmailForm />
     </>
   );
 }
