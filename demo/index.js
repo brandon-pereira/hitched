@@ -1,8 +1,7 @@
-import express from "express";
 import "dotenv/config";
+import express from "express";
 
 import database from "./database";
-
 import hitched from "../src";
 
 const app = express();
@@ -15,9 +14,12 @@ app.use(
   hitched({
     database,
     config: {
+      emails: {
+        templates: "./demo/templates/*.html",
+        emailSender: process.env.EMAIL_REPLY_ADDRESS,
+      },
       admin: {
-        emailTemplates: "./demo/templates/*.html",
-        users: {
+        accounts: {
           admin: "hitched",
         },
       },
