@@ -10,10 +10,10 @@ import {
   Error,
   Row,
 } from "../FormCommon/FormCommon";
-// import useGuestFormSubmission from "./useGuestFormSubmission";
-// import useDeleteGuest from "../../hooks/useDeleteGuest";/
+import useEmailTemplates from "../../hooks/useEmailTemplates";
+import useSendEmails from "../../hooks/useSendEmails";
 
-function GuestForm({ className, initialGuest }) {
+function EmailForm({ className }) {
   const {
     register,
     formState: { errors },
@@ -21,19 +21,12 @@ function GuestForm({ className, initialGuest }) {
     watch,
     reset,
   } = useForm();
+  const { templates } = useEmailTemplates();
+  const sendEmails = useSendEmails();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
-  const isModifying = Boolean(initialGuest);
   const { mutate, isError, error, reset: resetSubmission } = {};
-
-  useEffect(() => {
-    if (initialGuest && (initialGuest.plusOne || initialGuest.numberOfKids)) {
-      initialGuest.hasAdditionalGuests = true;
-    }
-    reset(initialGuest);
-    // resetSubmission();
-  }, [initialGuest]);
-
   const onSubmit = (data) => {
+    sendEmails(data);
     // mutate(data);
   };
 
@@ -50,28 +43,43 @@ function GuestForm({ className, initialGuest }) {
       )}
       <Row>
         <Column>
-          <FormElement id="sendTo" label="Send To" type="select">
-            <option>Accepted</option>
-            <option>Pending</option>
-            <option>Declined</option>
-            <option>Specific</option>
-          </FormElement>
-        </Column>
-        <Column>
-          <FormElement id="template" label="Template" type="select">
-            <option>Invite</option>
-            <option>Invite Part Two</option>
+          <FormElement
+            id="sendTo"
+            {...register("sendTo", {
+              required: true,
+            })}
+            error={errors.email}
+            label="Send To"
+            type="select"
+          >
+            <option value="accepted">Accepted</option>
+            <option value="pending">Pending</option>
+            <option value="declined">Declined</option>
+            <option value="specific">Specific</option>
           </FormElement>
         </Column>
       </Row>
-      <Submit type="submit">{isModifying ? "Modify" : "Create"}</Submit>
-      {isModifying && (
-        <button onClick={() => deleteGuest(initialGuest)} type="button">
-          DELETE
-        </button>
-      )}
+      <Row>
+        <Column>
+          <FormElement
+            {...register("templateId", {
+              required: true,
+            })}
+            id="templateId"
+            label="Template"
+            type="select"
+          >
+            {templates.map((template) => (
+              <option key={template.templateId} value={template.templateId}>
+                {template.title}
+              </option>
+            ))}
+          </FormElement>
+        </Column>
+      </Row>
+      <Submit type="submit">Send</Submit>
     </Container>
   );
 }
 
-export default GuestForm;
+export default EmailForm;

@@ -26,22 +26,20 @@ function initAdminRoutes({ db, config, mailer, router }) {
     router.use("/admin", express.static("./src/admin"));
   }
 
-  router.get("/api/admin/emails", async (req, res) => {
+  router.get("/api/admin/email/templates", async (req, res) => {
     try {
-      const templates = await mailer.getEmailTemplates();
+      const templates = await mailer.getTemplates();
 
-      res.json({
-        templates,
-      });
+      res.json(templates);
     } catch (err) {
-      res.status(500).json({ success: false, error: err });
+      res.status(500).json({ success: false, error: err.toString() });
     }
   });
 
-  router.get("/api/admin/email/:template", async (req, res) => {
+  router.get("/api/admin/email/:templateId", async (req, res) => {
     try {
       const email = req.query.email;
-      const params = req.params.template;
+      const params = req.params.templateId;
       if (!email || !params) {
         throw new Error("Missing params");
       }
@@ -62,21 +60,25 @@ function initAdminRoutes({ db, config, mailer, router }) {
 
   router.post("/api/admin/email", async (req, res) => {
     try {
-      const email = req.params.email;
-      const params = req.params.template;
-      if (!email || !params) {
+      console.log(req.body);
+      const emails = req.body.emails;
+      const params = req.body.templateId;
+      if (!emails || !params) {
         throw new Error("Missing params");
       }
-      const user = await db.Guest.findOne({ email: req.query.email });
-      if (!user) {
-        throw new Error("Invalid email");
-      }
-      const template = await mailer.useTemplate("invite", user.toObject());
-      await mailer.sendMail({
-        to: user.email,
-        subject: "Reminder: Emma & Brandon's Wedding Postponed!",
-        html: template,
+      const allEmails = emails.map(async (email) => {
+        const user = await db.Guest.findOne({ email });
+        if (!user) {
+          throw new Error("Invalid email");
+        }
+        const template = await mailer.useTemplate("invite", user.toObject());
+        await mailer.sendMail({
+          to: user.email,
+          subject: "Reminder: Emma & Brandon's Wedding Postponed!",
+          html: template,
+        });
       });
+      await Promise.all(allEmails);
       return res.send({
         success: true,
       });

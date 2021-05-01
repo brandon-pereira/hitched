@@ -1,41 +1,27 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
-import Header from "../../components/Header/Header";
-import FormElement from "../FormElement/FormElement";
+import useCurrentView from "../../hooks/useCurrentView";
+import useGuests from "../../hooks/useGuests";
 import EmailForm from "../EmailForm/EmailForm";
-import QuickStats from "./QuickStats";
+import Header from "../Header/Header";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  svg {
-    width: min(20vw, 400px);
-    margin-top: -10rem;
-  }
-  h1 {
-    margin: 0.6rem 0 1rem;
-    padding: 0;
-  }
-  h2 {
-    margin: 0;
-    width: 300px;
-    text-align: center;
-    font-weight: 200;
-  }
 `;
 
-function LandingPage() {
+const _EmailForm = styled(EmailForm)`
+  padding: 2rem;
+`;
+
+function SendEmailContainer() {
   return (
-    <>
+    <Container>
       <Header>Send Email</Header>
-      <EmailForm />
-    </>
+      <_EmailForm />
+    </Container>
   );
 }
 
-export default LandingPage;
+export default SendEmailContainer;

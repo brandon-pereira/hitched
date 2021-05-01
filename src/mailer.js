@@ -11,6 +11,7 @@ const SESConfig = {
   region: process.env.AWS_SES_REGION,
 };
 
+console.log(SESConfig);
 nunjucks.configure({
   noCache: true,
 });
@@ -68,12 +69,12 @@ const useTemplate = (config) => {
 const sendMail = async (options) => {
   console.log("SENDING EMAIL TO", options.to);
   const params = {
-    Source: "noreply@emma-brandon.wedding",
+    Source: process.env.AWS_SES_EMAIL_SOURCE,
     Destination: {
       ToAddresses: [options.to],
-      BccAddresses: [process.env.GMAIL_USER],
+      BccAddresses: [process.env.EMAIL_REPLY_ADDRESS],
     },
-    ReplyToAddresses: [process.env.GMAIL_USER],
+    ReplyToAddresses: [process.env.EMAIL_REPLY_ADDRESS],
     Message: {
       Body: {
         Html: {
