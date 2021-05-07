@@ -12,7 +12,7 @@ function useEmailTemplates() {
     { retry: false, refetchOnWindowFocus: false }
   );
 
-  return { isLoading, error, templates: data ? data : [] };
+  return { isLoading, error, templates: data ? data.data : [] };
 }
 
 export default useEmailTemplates;
