@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 app.use(
   hitched({
     database,
-    config: {
+    options: {
       emails: {
         templates: "./demo/templates/*.html",
         emailSender: process.env.EMAIL_REPLY_ADDRESS,

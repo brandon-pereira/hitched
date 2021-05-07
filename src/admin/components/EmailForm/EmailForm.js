@@ -21,14 +21,28 @@ function EmailForm({ className }) {
     watch,
     reset,
   } = useForm();
-  const { templates } = useEmailTemplates();
+  const { error, templates } = useEmailTemplates();
   const sendEmails = useSendEmails();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
-  const { mutate, isError, error, reset: resetSubmission } = {};
+  const {
+    mutate,
+    isError,
+    error: errorSubmission,
+    reset: resetSubmission,
+  } = {};
   const onSubmit = (data) => {
     sendEmails(data);
     // mutate(data);
   };
+
+  console.log(error);
+  if (error) {
+    return (
+      <Container className={className}>
+        <Error>{_get(error, "message", "Unexpected Error Occurred")}</Error>
+      </Container>
+    );
+  }
 
   return (
     <Container className={className} onSubmit={handleSubmit(onSubmit)}>

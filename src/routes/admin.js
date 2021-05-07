@@ -91,11 +91,13 @@ function initAdminRoutes({ db, config, mailer, router }) {
   });
 
   router.get("/api/admin/guests", async (req, res) => {
-    const guests = await db.Guest.find({});
-    res.json({
-      success: true,
-      guests: guests || [],
-    });
+    try {
+      const guests = await db.Guest.find({});
+      res.json(guests || []);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ success: false, error: err });
+    }
   });
 
   router.put("/api/admin/guests", async (req, res) => {

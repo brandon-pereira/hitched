@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import axios from "axios";
 import { useQuery } from "react-query";
 import useSortBy from "./useSortBy";
 import useFilterBy from "./useFilterBy";
@@ -7,15 +8,15 @@ import createSharedHook from "./internal/createdSharedHook";
 function useGuests() {
   const { isLoading, error, data } = useQuery(
     "guestList",
-    () => fetch("/api/admin/guests").then((res) => res.json()),
+    () => axios.get("/api/admin/guests"),
     {
       refetchOnWindowFocus: false,
     }
   );
 
   const stats = useMemo(() => {
-    if (data && data.guests) {
-      return Array.from(data.guests).reduce(
+    if (data && data.data) {
+      return Array.from(data.data).reduce(
         (acc, user) => {
           const entries = (user.plusOne ? 2 : 1) + (user.numberOfKids || 0);
           if (user.isConfirmed) {
@@ -42,7 +43,7 @@ function useGuests() {
     };
   }, [data]);
 
-  return { isLoading, stats, error, guests: data ? data.guests : [] };
+  return { isLoading, stats, error, guests: data ? data.data : [] };
 }
 
 const { Provider, useConsumer } = createSharedHook(useGuests);

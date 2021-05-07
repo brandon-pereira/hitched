@@ -26,10 +26,10 @@ function mailer({ config }) {
 
 function getTemplates(config) {
   return async () => {
-    if (!config.admin.emailTemplates) {
+    if (!config.emails.templates) {
       return [];
     }
-    const files = await glob(config.admin.emailTemplates);
+    const files = await glob(config.emails.templates);
     return files.map((fpath) => {
       const templateId = path.basename(fpath, path.extname(fpath));
       const title = templateId

@@ -1,22 +1,45 @@
 import _get from "lodash.get";
 
 function parseOptions(providedOpts) {
-  const _opts = {};
   // make sure a database is provided
   if (!providedOpts.database) {
     throw new Error("You must provide a Mongoose database object.");
   }
-  const config = _get(providedOpts, "config", {});
-  validateEmailConfig(config);
-  //   if (!config.emails || !config.emails.templates) _opts.config = config;
-
-  return _opts;
+  const options = _get(providedOpts, "options", {});
+  validate(options, {
+    path: "options",
+    requiredFields: ["emails", "admin"],
+  });
+  validate(options.emails, {
+    path: "options.emails",
+    requiredFields: ["templates", "emailSender"],
+  });
+  validate(options.emails, {
+    path: "options.emails",
+    requiredFields: ["templates", "emailSender"],
+  });
+  return {
+    database: providedOpts.database,
+    config: options,
+  };
 }
 
-function validateEmailConfig() {
-  return validate(config, { requiredFields: ["templates", "emailSender"] });
+function validate(opt, { path, requiredFields }) {
+  if (!opt || typeof opt !== "object") {
+    throw new Error(
+      `"${path}" is not defined. It needs to be an object with the following fields ["${requiredFields.join(
+        ', "'
+      )}"]`
+    );
+  }
+  const missingFields = requiredFields.filter((key) => !opt[key]);
+  if (missingFields.length) {
+    throw new Error(
+      `"${path}" is missing the following required fields ["${missingFields.join(
+        ', "'
+      )}"]`
+    );
+  }
 }
-
-function validate(opt, { requiredFields }) {}
 
 export default parseOptions;

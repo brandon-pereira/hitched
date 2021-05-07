@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useQuery } from "react-query";
 
 /**
@@ -5,12 +6,10 @@ import { useQuery } from "react-query";
  * @returns {Object} { isLoading, error, templates: <Array> }
  */
 function useEmailTemplates() {
-  const { isLoading, error, data } = useQuery(
+  const { isLoading, error, isError, data } = useQuery(
     "emailTemplates",
-    () => fetch("/api/admin/email/templates").then((res) => res.json()),
-    {
-      refetchOnWindowFocus: false,
-    }
+    () => axios.get("/api/admin/email/templates"),
+    { retry: false, refetchOnWindowFocus: false }
   );
 
   return { isLoading, error, templates: data ? data : [] };

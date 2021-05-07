@@ -6,8 +6,8 @@ import parseOptions from "./parseOptions";
 
 function Hitched(options) {
   const internalOptions = parseOptions(options);
-  internalOptions.db = database(options);
-  internalOptions.mailer = mailer(options);
+  internalOptions.db = database(internalOptions);
+  internalOptions.mailer = mailer(internalOptions);
   return router(internalOptions);
 }
 
