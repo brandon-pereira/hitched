@@ -41,7 +41,7 @@ function Filters() {
         }}
       >
         <option disabled>Filter By</option>
-        <option value={FILTER_METHODS.NONE}>Filter By</option>
+        <option value={FILTER_METHODS.ALL}>Filter By</option>
         <option value={FILTER_METHODS.CONFIRMED}>Confirmed</option>
         <option value={FILTER_METHODS.DECLINED}>Declined</option>
         <option value={FILTER_METHODS.PENDING}>Pending</option>

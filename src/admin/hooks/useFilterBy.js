@@ -3,14 +3,14 @@ import { useState } from "react";
 import createSharedHook from "./internal/createdSharedHook";
 
 export const FILTER_METHODS = {
-  NONE: "NONE",
+  ALL: "ALL",
   CONFIRMED: "CONFIRMED",
   DECLINED: "DECLINED",
   PENDING: "PENDING",
 };
 
 function useFilterBy() {
-  const [filterBy, setFilterBy] = useState(FILTER_METHODS.NONE);
+  const [filterBy, setFilterBy] = useState(FILTER_METHODS.ALL);
 
   // we can add validation of setFilterBy here if needed
 

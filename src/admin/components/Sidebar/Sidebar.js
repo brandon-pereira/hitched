@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useGuests from "../../hooks/useGuests";
+import useSortedGuests from "../../hooks/useSortedGuests";
 import useCurrentView, { VIEW_MODES } from "../../hooks/useCurrentView";
 
 import AddGuest from "./AddGuest";
@@ -25,14 +25,14 @@ const ItemContainer = styled.ul`
 `;
 
 function Sidebar() {
-  const { isLoading, error, guests } = useGuests();
+  const { isLoading, error, guests, sortedGuests } = useSortedGuests();
   const { setGuestId, setMode } = useCurrentView();
 
   return (
     <Container>
       <Filters />
       <ItemContainer>
-        {guests.map((guest) => (
+        {sortedGuests.map((guest) => (
           <SidebarItem
             key={guest._id}
             {...guest}
