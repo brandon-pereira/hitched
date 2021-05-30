@@ -58,7 +58,7 @@ export const Input = styled.input`
   font-size: 1rem;
   box-sizing: border-box;
   padding: 0.7rem 0.6em;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   appearance: none;
   width: 100%;
   resize: none;
