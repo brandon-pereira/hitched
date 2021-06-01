@@ -36,6 +36,10 @@ function EditGuest() {
                     deleteGuest(guest);
                   },
                 },
+                {
+                  title: "Email Guest",
+                  onSelect: () => {},
+                },
               ]
             : undefined
         }
