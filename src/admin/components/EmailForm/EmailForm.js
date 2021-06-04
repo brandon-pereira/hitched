@@ -12,6 +12,7 @@ import {
 } from "../FormCommon/FormCommon";
 import useEmailTemplates from "../../hooks/useEmailTemplates";
 import useSendEmails from "../../hooks/useSendEmails";
+import useGuests from "../../hooks/useGuests";
 import { FILTER_METHODS } from "../../hooks/useFilterBy";
 
 function EmailForm({ className }) {
@@ -28,13 +29,8 @@ function EmailForm({ className }) {
     isError: isSendError,
     error: sendError,
   } = useSendEmails();
-  const hasAdditionalGuests = watch("hasAdditionalGuests");
-  const {
-    mutate,
-    isError,
-    error: errorSubmission,
-    reset: resetSubmission,
-  } = {};
+  const { guests } = useGuests();
+  const sendTo = watch("sendTo");
   const onSubmit = (data) => {
     sendEmails(data);
     // mutate(data);
@@ -66,7 +62,7 @@ function EmailForm({ className }) {
             {...register("sendTo", {
               required: true,
             })}
-            error={errors.email}
+            error={errors.sendTo}
             label="Send To"
             type="select"
           >
@@ -77,6 +73,28 @@ function EmailForm({ className }) {
           </FormElement>
         </Column>
       </Row>
+      {sendTo === "SPECIFIC" && (
+        <Row>
+          <Column>
+            <FormElement
+              id="specificGuests"
+              {...register("specificGuests", {
+                required: true,
+              })}
+              error={errors.specificGuests}
+              label="Select Guest(s)"
+              type="select"
+              multiple
+            >
+              {guests.map((g) => (
+                <option key={g._id} value={g.email}>
+                  {g.firstName} {g.lastName}
+                </option>
+              ))}
+            </FormElement>
+          </Column>
+        </Row>
+      )}
       <Row>
         <Column>
           <FormElement
@@ -86,6 +104,7 @@ function EmailForm({ className }) {
             id="templateId"
             label="Template"
             type="select"
+            error={errors.templateId}
           >
             {templates.map((template) => (
               <option key={template.templateId} value={template.templateId}>
