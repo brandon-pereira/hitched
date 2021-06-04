@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
 
-import useCurrentView from "../../hooks/useCurrentView";
+import useCurrentView, { VIEW_MODES } from "../../hooks/useCurrentView";
 import useDeleteGuest from "../../hooks/useDeleteGuest";
 import useGuests from "../../hooks/useGuests";
 
@@ -18,7 +18,7 @@ const _GuestForm = styled(GuestForm)`
 `;
 
 function EditGuest() {
-  const { guestId } = useCurrentView();
+  const { guestId, setMode, setGuestId } = useCurrentView();
   const { guests } = useGuests();
   const { mutate: deleteGuest } = useDeleteGuest();
 
@@ -38,7 +38,9 @@ function EditGuest() {
                 },
                 {
                   title: "Email Guest",
-                  onSelect: () => {},
+                  onSelect: () => {
+                    setMode(VIEW_MODES.SEND_EMAIL);
+                  },
                 },
               ]
             : undefined

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import _get from "lodash.get";
 
@@ -13,23 +13,30 @@ import {
 import useEmailTemplates from "../../hooks/useEmailTemplates";
 import useSendEmails from "../../hooks/useSendEmails";
 import useGuests from "../../hooks/useGuests";
+import useCurrentView from "../../hooks/useCurrentView";
 import { FILTER_METHODS } from "../../hooks/useFilterBy";
 
 function EmailForm({ className }) {
+  const { guestId } = useCurrentView();
+  const { guests } = useGuests();
+  const guest = useMemo(() => guests.find((g) => g._id === guestId), [guestId]);
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: guest
+      ? { sendTo: "SPECIFIC", specificGuests: [guest.email] }
+      : undefined,
+  });
   const { error, templates } = useEmailTemplates();
   const {
     mutate: sendEmails,
     isError: isSendError,
     error: sendError,
   } = useSendEmails();
-  const { guests } = useGuests();
   const sendTo = watch("sendTo");
   const onSubmit = (data) => {
     sendEmails(data);
