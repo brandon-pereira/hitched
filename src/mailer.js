@@ -11,7 +11,6 @@ const SESConfig = {
   region: process.env.AWS_SES_REGION,
 };
 
-console.log(SESConfig);
 nunjucks.configure({
   noCache: true,
 });

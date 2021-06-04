@@ -5,7 +5,7 @@ import useGuests from "./useGuests";
 import useFilterBy from "./useFilterBy";
 import createSharedHook from "./internal/createdSharedHook";
 
-import filterGuests from "../utilities/filter-guests";
+import filterGuests from "../utilities/filterGuests";
 
 function useSortedGuests() {
   const [sortBy, setSortBy] = useSortBy();

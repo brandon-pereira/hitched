@@ -12,6 +12,7 @@ import {
 } from "../FormCommon/FormCommon";
 import useEmailTemplates from "../../hooks/useEmailTemplates";
 import useSendEmails from "../../hooks/useSendEmails";
+import { FILTER_METHODS } from "../../hooks/useFilterBy";
 
 function EmailForm({ className }) {
   const {
@@ -22,7 +23,11 @@ function EmailForm({ className }) {
     reset,
   } = useForm();
   const { error, templates } = useEmailTemplates();
-  const sendEmails = useSendEmails();
+  const {
+    mutate: sendEmails,
+    isError: isSendError,
+    error: sendError,
+  } = useSendEmails();
   const hasAdditionalGuests = watch("hasAdditionalGuests");
   const {
     mutate,
@@ -35,7 +40,6 @@ function EmailForm({ className }) {
     // mutate(data);
   };
 
-  console.log(error);
   if (error) {
     return (
       <Container className={className}>
@@ -46,10 +50,10 @@ function EmailForm({ className }) {
 
   return (
     <Container className={className} onSubmit={handleSubmit(onSubmit)}>
-      {isError && (
+      {sendError && (
         <Error>
           {_get(
-            error,
+            sendError,
             "response.data.error.message",
             "Unexpected Error Occurred"
           )}
@@ -66,10 +70,10 @@ function EmailForm({ className }) {
             label="Send To"
             type="select"
           >
-            <option value="accepted">Accepted</option>
-            <option value="pending">Pending</option>
-            <option value="declined">Declined</option>
-            <option value="specific">Specific</option>
+            <option value={FILTER_METHODS.CONFIRMED}>Accepted</option>
+            <option value={FILTER_METHODS.PENDING}>Pending</option>
+            <option value={FILTER_METHODS.DECLINED}>Declined</option>
+            <option value="SPECIFIC">Specific</option>
           </FormElement>
         </Column>
       </Row>
