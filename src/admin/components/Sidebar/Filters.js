@@ -32,6 +32,7 @@ const Filter = styled.select`
 
 function Filters() {
   const [filterBy, setFilterBy] = useFilterBy();
+  const [sortBy, setSortBy] = useSortBy();
   return (
     <Container>
       <Filter
@@ -46,7 +47,12 @@ function Filters() {
         <option value={FILTER_METHODS.DECLINED}>Declined</option>
         <option value={FILTER_METHODS.PENDING}>Pending</option>
       </Filter>
-      <Filter>
+      <Filter
+        value={sortBy}
+        onChange={(e) => {
+          setSortBy(e.target.value);
+        }}
+      >
         <option disabled>Sort By</option>
         <option value={SORT_METHODS.ATTENDING}>Attending</option>
         <option value={SORT_METHODS.FIRST_NAME}>First Name</option>
