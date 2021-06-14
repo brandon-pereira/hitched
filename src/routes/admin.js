@@ -1,17 +1,18 @@
 import express from "express";
 import basicAuth from "express-basic-auth";
 import _get from "lodash.get";
+import path from "path";
 
 function initAdminRoutes({ db, config, mailer, router }) {
   router.use(
     ["/api/admin", "/admin"],
     basicAuth({
-      users: _get(config, "admin.users", { admin: "hitched" }),
+      users: _get(config, "admin.accounts", { admin: "hitched" }),
       challenge: true,
     })
   );
 
-  if (process.env.NODE_END !== "production") {
+  if (process.env.HITCHED_ENV === "development") {
     //https://github.com/parcel-bundler/parcel/issues/3098
     const Bundler = require("parcel-bundler");
     const bundler = new Bundler("src/admin/index.html", {
@@ -23,7 +24,7 @@ function initAdminRoutes({ db, config, mailer, router }) {
       bundler(req, res, next);
     });
   } else {
-    router.use("/admin", express.static("./src/admin"));
+    router.use("/admin", express.static(path.resolve(__dirname, "../../dist")));
   }
 
   router.get("/api/admin/email/templates", async (req, res) => {
