@@ -19,7 +19,7 @@ function mailer({ config }) {
   return {
     getTemplates: getTemplates(config),
     useTemplate: useTemplate(config),
-    sendMail,
+    sendMail: sendMail(config),
   };
 }
 
@@ -65,29 +65,31 @@ const useTemplate = (config) => {
   };
 };
 
-const sendMail = async (options) => {
-  console.log("SENDING EMAIL TO", options.to);
-  const params = {
-    Source: process.env.AWS_SES_EMAIL_SOURCE,
-    Destination: {
-      ToAddresses: [options.to],
-      BccAddresses: [process.env.EMAIL_REPLY_ADDRESS],
-    },
-    ReplyToAddresses: [process.env.EMAIL_REPLY_ADDRESS],
-    Message: {
-      Body: {
-        Html: {
+const sendMail = (config) => {
+  return async (options) => {
+    console.log("SENDING EMAIL TO", options.to);
+    const params = {
+      Source: config.emails.emailSender,
+      Destination: {
+        ToAddresses: [options.to],
+        BccAddresses: [config.emails.emailReplyAddress],
+      },
+      ReplyToAddresses: [config.emails.emailReplyAddress],
+      Message: {
+        Body: {
+          Html: {
+            Charset: "UTF-8",
+            Data: options.html,
+          },
+        },
+        Subject: {
           Charset: "UTF-8",
-          Data: options.html,
+          Data: options.subject,
         },
       },
-      Subject: {
-        Charset: "UTF-8",
-        Data: options.subject,
-      },
-    },
+    };
+    await new AWS.SES(SESConfig).sendEmail(params).promise();
   };
-  await new AWS.SES(SESConfig).sendEmail(params).promise();
 };
 
 export default mailer;

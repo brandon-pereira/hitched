@@ -12,7 +12,7 @@ function parseOptions(providedOpts) {
   });
   validate(options.emails, {
     path: "options.emails",
-    requiredFields: ["templates", "emailSender"],
+    requiredFields: ["templates", "emailSender", "emailReplyAddress"],
   });
   validate(options.emails, {
     path: "options.emails",

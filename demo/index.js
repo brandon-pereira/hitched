@@ -16,7 +16,8 @@ app.use(
     options: {
       emails: {
         templates: "./demo/templates/*.html",
-        emailSender: process.env.EMAIL_REPLY_ADDRESS,
+        emailSender: process.env.AWS_SES_EMAIL_SOURCE,
+        emailReplyAddress: process.env.EMAIL_REPLY_ADDRESS,
       },
       admin: {
         accounts: {
