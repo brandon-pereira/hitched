@@ -106,6 +106,10 @@ function GuestForm({ className, initialGuest }) {
                 value: true,
                 message: "First name is required.",
               },
+              pattern: {
+                value: /^[a-zA-Z\u00C0-\u024F]+$/,
+                message: "First Name is not formatted correctly.",
+              },
               maxLength: {
                 value: 20,
                 message: "First name must be less than 20 characters",
@@ -126,6 +130,10 @@ function GuestForm({ className, initialGuest }) {
               required: {
                 value: true,
                 message: "Last name is required.",
+              },
+              pattern: {
+                value: /^[a-zA-Z\u00C0-\u024F]+$/,
+                message: "Last Name is not formatted correctly.",
               },
               maxLength: {
                 value: 20,
@@ -163,6 +171,10 @@ function GuestForm({ className, initialGuest }) {
                     value: 20,
                     message: "First name must be less than 20 characters",
                   },
+                  pattern: {
+                    value: /^[a-zA-Z\u00C0-\u024F]+$/,
+                    message: "First Name is not formatted correctly.",
+                  },
                   minLength: {
                     value: 3,
                     message: "First name must be at least 3 characters",
@@ -178,11 +190,15 @@ function GuestForm({ className, initialGuest }) {
                 {...register("plusOne.lastName", {
                   maxLength: {
                     value: 20,
-                    message: "First name must be less than 20 characters",
+                    message: "Last name must be less than 20 characters",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z\u00C0-\u024F]+$/,
+                    message: "Last Name is not formatted correctly.",
                   },
                   minLength: {
                     value: 3,
-                    message: "First name must be at least 3 characters",
+                    message: "Last name must be at least 3 characters",
                   },
                 })}
                 error={_get(errors, "plusOne.lastName")}
@@ -222,9 +238,9 @@ function GuestForm({ className, initialGuest }) {
             label="Attendance"
             {...register("attendance", {})}
           >
+            <option>Pending</option>
             <option>Attending</option>
             <option>Declined</option>
-            <option>Pending</option>
           </FormElement>
         </Column>
       </Row>
@@ -245,11 +261,6 @@ function GuestForm({ className, initialGuest }) {
         </Column>
       </Row>
       <Submit type="submit">{isModifying ? "Modify" : "Create"}</Submit>
-      {isModifying && (
-        <button onClick={() => deleteGuest(initialGuest)} type="button">
-          DELETE
-        </button>
-      )}
     </Container>
   );
 }
