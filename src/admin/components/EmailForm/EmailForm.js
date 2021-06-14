@@ -73,6 +73,7 @@ function EmailForm({ className }) {
             label="Send To"
             type="select"
           >
+            <option value={FILTER_METHODS.ALL}>All</option>
             <option value={FILTER_METHODS.CONFIRMED}>Accepted</option>
             <option value={FILTER_METHODS.PENDING}>Pending</option>
             <option value={FILTER_METHODS.DECLINED}>Declined</option>
@@ -102,23 +103,36 @@ function EmailForm({ className }) {
           </Column>
         </Row>
       )}
+      {templates.length && (
+        <Row>
+          <Column>
+            <FormElement
+              {...register("templateId", {
+                required: true,
+              })}
+              defaultValue={templates[0].templateId}
+              id="templateId"
+              label="Template"
+              type="select"
+              error={errors.templateId}
+            >
+              {templates.map((template) => (
+                <option key={template.templateId} value={template.templateId}>
+                  {template.title}
+                </option>
+              ))}
+            </FormElement>
+          </Column>
+        </Row>
+      )}
       <Row>
         <Column>
           <FormElement
-            {...register("templateId", {
-              required: true,
-            })}
-            id="templateId"
-            label="Template"
-            type="select"
-            error={errors.templateId}
-          >
-            {templates.map((template) => (
-              <option key={template.templateId} value={template.templateId}>
-                {template.title}
-              </option>
-            ))}
-          </FormElement>
+            type="checkbox"
+            id="sendCalendarAttachment"
+            {...register("sendCalendarAttachment", {})}
+            label="Send Calendar Attachment"
+          />
         </Column>
       </Row>
       <Submit type="submit">Send</Submit>
