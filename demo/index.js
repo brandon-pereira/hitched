@@ -18,6 +18,17 @@ app.use(
         templates: "./demo/templates/*.html",
         emailSender: process.env.AWS_SES_EMAIL_SOURCE,
         emailReplyAddress: process.env.EMAIL_REPLY_ADDRESS,
+        calendarAttachment: {
+          domain: "hitched-demo.com",
+          prodId: "//hitched-demo.com//ical-generator//EN",
+          events: [
+            {
+              start: new Date(Date.UTC(2021, 3, 23, 20)),
+              end: new Date(Date.UTC(2021, 3, 24, 8)),
+              summary: "Test & Test's Wedding",
+            },
+          ],
+        },
       },
       admin: {
         accounts: {

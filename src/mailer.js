@@ -1,5 +1,7 @@
 import nunjucks from "nunjucks";
 import AWS from "aws-sdk";
+import nodemailer from "nodemailer";
+import ical from "ical-generator";
 import glob from "tiny-glob";
 import path from "path";
 
@@ -68,28 +70,33 @@ const useTemplate = (config) => {
 const sendMail = (config) => {
   return async (options) => {
     console.log("SENDING EMAIL TO", options.to);
-    const params = {
-      Source: config.emails.emailSender,
-      Destination: {
-        ToAddresses: [options.to],
-        BccAddresses: [config.emails.emailReplyAddress],
-      },
-      ReplyToAddresses: [config.emails.emailReplyAddress],
-      Message: {
-        Body: {
-          Html: {
-            Charset: "UTF-8",
-            Data: options.html,
-          },
-        },
-        Subject: {
-          Charset: "UTF-8",
-          Data: options.subject,
-        },
-      },
-    };
-    await new AWS.SES(SESConfig).sendEmail(params).promise();
+    let transporter = nodemailer.createTransport({
+      SES: new AWS.SES(SESConfig),
+    });
+    options.sendCalendarAttachment = true;
+    await transporter.sendMail({
+      from: config.emails.emailSender,
+      to: [options.to],
+      bcc: [config.emails.emailReplyAddress],
+      replyTo: config.emails.emailReplyAddress,
+      html: options.html,
+      subject: options.subject,
+      icalEvent: options.sendCalendarAttachment
+        ? generateAttachment(config)
+        : undefined,
+    });
   };
+};
+
+const generateAttachment = (config) => {
+  if (config.emails.calendarAttachment) {
+    const invite = ical(config.emails.calendarAttachment);
+    return {
+      filename: "invite.ics",
+      method: "request",
+      content: invite.toString(),
+    };
+  }
 };
 
 export default mailer;

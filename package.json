@@ -5,8 +5,8 @@
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "nodemon -r esm ./demo",
-    "admin": "parcel ./src/admin/index.html"
+    "demo": "HITCHED_ENV=development nodemon -r esm ./demo",
+    "admin": "parcel build ./src/admin/index.html --public-url=./"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "aws-sdk": "^2.892.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
@@ -37,10 +37,12 @@
     "styled-components": "^5.2.1"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "aws-sdk": "^2.892.0",
     "body-parser": "^1.19.0",
     "express-basic-auth": "^1.2.0",
+    "ical-generator": "^1.15.2",
     "lodash.get": "^4.4.2",
+    "nodemailer": "^6.6.1",
     "nunjucks": "^3.2.3",
     "tiny-glob": "^0.2.8"
   },
