@@ -61,19 +61,13 @@ const Item = styled.li`
 function ContextNav({ items }) {
   const [isNavOpen, setNavOpen] = useState(false);
   const ref = useRef();
-  useOnClickOutside(
-    ref,
+  useOnClickOutside(ref, () => setNavOpen(false));
 
-    () => setNavOpen(false)
-  );
   return (
-    <Container>
-      <Icon
-        iconName="more_vert"
-        onClick={() => setNavOpen((state) => !state)}
-      />
+    <Container ref={ref}>
+      <Icon iconName="more_vert" onClick={() => setNavOpen((state) => true)} />
 
-      <ItemContainer ref={ref} isOpen={isNavOpen}>
+      <ItemContainer isOpen={isNavOpen}>
         {items.map((item) => (
           <Item key={item.title} onClick={item.onSelect}>
             {item.title}
