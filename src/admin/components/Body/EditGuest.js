@@ -31,15 +31,15 @@ function EditGuest() {
           guest
             ? [
                 {
-                  title: "Delete Guest",
-                  onSelect: () => {
-                    deleteGuest(guest);
-                  },
-                },
-                {
                   title: "Email Guest",
                   onSelect: () => {
                     setMode(VIEW_MODES.SEND_EMAIL);
+                  },
+                },
+                {
+                  title: "Delete Guest",
+                  onSelect: () => {
+                    deleteGuest(guest);
                   },
                 },
               ]

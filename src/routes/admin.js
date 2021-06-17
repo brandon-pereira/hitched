@@ -37,33 +37,12 @@ function initAdminRoutes({ db, config, mailer, router }) {
     }
   });
 
-  router.get("/api/admin/email/:templateId", async (req, res) => {
-    try {
-      const email = req.query.email;
-      const params = req.params.templateId;
-      if (!email || !params) {
-        throw new Error("Missing params");
-      }
-      const user = await db.Guest.findOne({ email: req.query.email });
-      if (!user) {
-        throw new Error("Invalid email");
-      }
-      const template = await mailer.useTemplate("invite", user.toObject());
-
-      return res.send(template);
-    } catch (err) {
-      console.error(err);
-      res
-        .status(500)
-        .json({ success: false, error: err ? err.toString() : null });
-    }
-  });
-
   router.post("/api/admin/email", async (req, res) => {
     try {
       console.log(req.body);
       const emails = req.body.emails;
       const params = req.body.templateId;
+      const sendCalendarAttachment = req.body.sendCalendarAttachment || false;
       if (!emails || !params) {
         throw new Error("Missing params");
       }
@@ -77,6 +56,7 @@ function initAdminRoutes({ db, config, mailer, router }) {
           to: user.email,
           subject: "Reminder: Emma & Brandon's Wedding Postponed!",
           html: template,
+          sendCalendarAttachment,
         });
       });
       await Promise.all(allEmails);
