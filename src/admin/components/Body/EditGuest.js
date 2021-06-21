@@ -22,7 +22,10 @@ function EditGuest() {
   const { guests } = useGuests();
   const { mutate: deleteGuest } = useDeleteGuest();
 
-  const guest = useMemo(() => guests.find((g) => g._id === guestId), [guestId]);
+  const guest = useMemo(
+    () => guests.find((g) => g._id === guestId),
+    [guests, guestId]
+  );
 
   return (
     <Container>

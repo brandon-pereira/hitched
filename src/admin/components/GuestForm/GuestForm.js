@@ -35,6 +35,9 @@ function GuestForm({ className, initialGuest }) {
     if (initialGuest && (initialGuest.plusOne || initialGuest.numberOfKids)) {
       initialGuest.hasAdditionalGuests = true;
     }
+    if (initialGuest) {
+      initialGuest.attendance = getDefaultValueFromGuest(initialGuest);
+    }
     reset(initialGuest);
     resetSubmission();
   }, [initialGuest]);
@@ -50,15 +53,15 @@ function GuestForm({ className, initialGuest }) {
       delete data.comments;
     }
     switch (data.attendance) {
-      case "Attending":
+      case "ATTENDING":
         data.isConfirmed = true;
         data.isDeclined = false;
         break;
-      case "Declined":
+      case "DECLINED":
         data.isConfirmed = false;
         data.isDeclined = true;
         break;
-      case "Pending":
+      case "PENDING":
         data.isConfirmed = false;
         data.isDeclined = false;
         break;
@@ -238,9 +241,9 @@ function GuestForm({ className, initialGuest }) {
             label="Attendance"
             {...register("attendance", {})}
           >
-            <option>Pending</option>
-            <option>Attending</option>
-            <option>Declined</option>
+            <option value="PENDING">Pending</option>
+            <option value="ATTENDING">Attending</option>
+            <option value="DECLINED">Declined</option>
           </FormElement>
         </Column>
       </Row>
@@ -263,6 +266,16 @@ function GuestForm({ className, initialGuest }) {
       <Submit type="submit">{isModifying ? "Modify" : "Create"}</Submit>
     </Container>
   );
+}
+
+function getDefaultValueFromGuest(user) {
+  if (user && user.isConfirmed && !user.isDeclined) {
+    return "ATTENDING";
+  } else if (user && user.isDeclined && !user.isConfirmed) {
+    return "DECLINED";
+  } else {
+    return "PENDING";
+  }
 }
 
 export default GuestForm;
