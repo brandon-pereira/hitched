@@ -41,9 +41,10 @@ function initAdminRoutes({ db, config, mailer, router }) {
     try {
       console.log(req.body);
       const emails = req.body.emails;
-      const params = req.body.templateId;
+      const templateId = req.body.templateId;
+      const subject = req.body.subject;
       const sendCalendarAttachment = req.body.sendCalendarAttachment || false;
-      if (!emails || !params) {
+      if (!emails || !templateId || !subject) {
         throw new Error("Missing params");
       }
       const allEmails = emails.map(async (email) => {
@@ -51,11 +52,11 @@ function initAdminRoutes({ db, config, mailer, router }) {
         if (!user) {
           throw new Error("Invalid email");
         }
-        const template = await mailer.useTemplate("invite", user.toObject());
+        const html = await mailer.useTemplate(templateId, user.toObject());
         await mailer.sendMail({
           to: user.email,
-          subject: "Reminder: Emma & Brandon's Wedding Postponed!",
-          html: template,
+          subject,
+          html,
           sendCalendarAttachment,
         });
       });

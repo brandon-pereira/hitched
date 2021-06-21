@@ -8,7 +8,13 @@ import filterGuests from "../utilities/filterGuests";
 function useSendEmails() {
   const { guests } = useGuests();
   const mutation = useMutation(
-    ({ templateId, sendCalendarAttachment, specificGuests, sendTo }) => {
+    ({
+      templateId,
+      sendCalendarAttachment,
+      subject,
+      specificGuests,
+      sendTo,
+    }) => {
       let emails = [];
       if (sendTo === "SPECIFIC") {
         emails = specificGuests;
@@ -26,6 +32,7 @@ function useSendEmails() {
       console.info("sending emails to", emails);
       axios.post("/api/admin/email", {
         emails,
+        subject,
         templateId,
         sendCalendarAttachment,
       });

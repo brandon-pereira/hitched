@@ -103,6 +103,21 @@ function EmailForm({ className }) {
           </Column>
         </Row>
       )}
+      <Row>
+        <Column>
+          <FormElement
+            id="subject"
+            {...register("subject", {
+              required: true,
+              min: 1,
+              max: 200,
+            })}
+            error={errors.subject}
+            label="Subject Line"
+            type="input"
+          />
+        </Column>
+      </Row>
       {templates.length && (
         <Row>
           <Column>
