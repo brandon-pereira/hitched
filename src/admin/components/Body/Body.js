@@ -10,10 +10,11 @@ import GuestForm from "../GuestForm/GuestForm";
 import SendEmail from "./SendEmail";
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-`;
+   width: 100%;
+   height: 100%;
+   overflow-y: auto;
+
+`
 
 function Body() {
   const { mode } = useCurrentView();

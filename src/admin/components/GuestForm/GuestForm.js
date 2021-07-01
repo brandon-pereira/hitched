@@ -250,6 +250,36 @@ function GuestForm({ className, initialGuest }) {
       <Row>
         <Column>
           <FormElement
+            id="musicSuggestions"
+            label="Music Suggestions"
+            {...register("musicSuggestions", {
+              maxLength: {
+                value: 200,
+                message: "Maximum 200 characters",
+              },
+            })}
+            error={errors.comments}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <FormElement
+            id="dietaryRestrictions"
+            label="Dietary Restrictions"
+            {...register("dietaryRestrictions", {
+              maxLength: {
+                value: 200,
+                message: "Maximum 200 characters",
+              },
+            })}
+            error={errors.comments}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <FormElement
             as="textarea"
             id="comments"
             label="Comments"

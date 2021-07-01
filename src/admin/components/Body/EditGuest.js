@@ -28,7 +28,7 @@ function EditGuest() {
   );
 
   return (
-    <Container>
+    <>
       <Header
         contextNav={
           guest
@@ -52,7 +52,7 @@ function EditGuest() {
         Edit Guest
       </Header>
       <_GuestForm initialGuest={guest} />
-    </Container>
+    </>
   );
 }
 

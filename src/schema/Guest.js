@@ -65,11 +65,11 @@ function Guest(mongoose) {
     },
     dietaryRestrictions: {
       type: String,
-      minlength: 1,
+      default: ''
     },
     musicSuggestions: {
       type: String,
-      minlength: 1,
+      default: ''
     },
   });
 
