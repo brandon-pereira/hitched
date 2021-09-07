@@ -1,12 +1,13 @@
 {
   "name": "get-hitched",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "I wanted to build a reusable system for managing weddings. The idea is that this will take care of all the \"behind the scenes\" logic and allow you (the developer) to focus on building the appearance and functionality on the front-end.",
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "demo": "HITCHED_ENV=development nodemon -r esm ./demo",
-    "admin": "parcel build ./src/admin/index.html --public-url=./"
+    "build:admin": "parcel build ./src/admin/index.html --public-url=./",
+    "prepublish": "npm run build:admin"
   },
   "repository": {
     "type": "git",
