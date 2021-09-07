@@ -1,3 +1,5 @@
+// CLIENT API IS WIP!!
+
 async function lookup(email) {
   return post(`api/lookup`, { email }).catch(handleServerError);
 }

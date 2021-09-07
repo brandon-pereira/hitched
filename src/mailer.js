@@ -73,7 +73,6 @@ const sendMail = (config) => {
     let transporter = nodemailer.createTransport({
       SES: new AWS.SES(SESConfig),
     });
-    options.sendCalendarAttachment = true;
     await transporter.sendMail({
       from: config.emails.emailSender,
       to: [options.to],
