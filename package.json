@@ -1,5 +1,5 @@
 {
-  "name": "hitched",
+  "name": "get-hitched",
   "version": "1.0.0",
   "description": "I wanted to build a reusable system for managing weddings. The idea is that this will take care of all the \"behind the scenes\" logic and allow you (the developer) to focus on building the appearance and functionality on the front-end.",
   "main": "./index.js",

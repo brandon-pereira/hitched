@@ -1,13 +1,13 @@
 # Hitched API Docs
 
-Hitched provides one main export, and that is the `hitched` middleware which is to be used with `express`.
+Hitched provides one main export, and that is the `get-hitched` middleware which is to be used with `express`.
 
 ## `hitched` middleware
 
 ### Importing
 
 ```js
-import hitched from "hitched";
+import hitched from "get-hitched";
 ```
 
 ### Usage

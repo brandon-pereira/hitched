@@ -7,7 +7,7 @@ Hitched also exposes an admin panel which will allow you to easily add, update, 
 ## Installation
 
 ```js
-npm i -S hitched
+npm i -S get-hitched
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ Hitched exposes a middleware that you can then use to access our routes.
 ```js
 const express = require("express");
 const app = express();
-app.use(require("hitched")());
+app.use(require("get-hitched")());
 ```
 
 ## Running the demo

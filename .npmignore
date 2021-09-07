@@ -1,0 +1,7 @@
+.cache
+demo
+docs
+node_modules
+.DS_Store
+.env
+src/admin
