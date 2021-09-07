@@ -34,6 +34,8 @@ function EmailForm({ className }) {
   const { error, templates } = useEmailTemplates();
   const {
     mutate: sendEmails,
+    isSuccess: isSuccess,
+    isLoading: isLoading,
     isError: isSendError,
     error: sendError,
   } = useSendEmails();
@@ -150,7 +152,11 @@ function EmailForm({ className }) {
           />
         </Column>
       </Row>
-      <Submit type="submit">Send</Submit>
+      <Submit type="submit">
+        {isLoading && !isSuccess ? "Loading" : null}
+        {isSuccess && !isLoading ? "Sent!" : null}
+        {!isLoading && !isSuccess ? "Send" : null}
+      </Submit>
     </Container>
   );
 }
